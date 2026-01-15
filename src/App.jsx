@@ -6,6 +6,7 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import DashboardLayout from './layouts/DashboardLayout'
 import Calendar from './pages/Calendar'
+import Settings from './pages/Settings'
 import './index.css'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
                     >
                         <Route path="/" element={<Dashboard />} />
                         <Route path="/calendar" element={<Calendar />} />
+                        <Route path="/settings" element={<Settings />} />
                         {/* Otras rutas internas se añadirían aquí */}
                     </Route>
 
