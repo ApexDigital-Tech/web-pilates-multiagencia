@@ -17,16 +17,21 @@ export default function Sidebar() {
     const { profile, user } = useAuth();
 
     const handleLogout = async () => {
+        console.log('Logging out...');
         try {
-            // Clear all local storage just in case
+            // 1. Sign out from Supabase
+            const { error } = await supabase.auth.signOut();
+            if (error) throw error;
+
+            // 2. Clear all local session data
             localStorage.clear();
             sessionStorage.clear();
-            await supabase.auth.signOut();
-            // Force a hard redirect to the login page to clear all React states
+
+            // 3. Force hard reload to login page
             window.location.href = '/login';
         } catch (error) {
-            console.error('Error logging out:', error);
-            // Fallback redirect
+            console.error('Error during logout:', error);
+            // Fallback for emergency
             window.location.href = '/login';
         }
     };
@@ -40,13 +45,18 @@ export default function Sidebar() {
         { name: 'Ajustes', icon: Settings, path: '/settings', roles: ['superadmin', 'branch_manager', 'instructor', 'client'] },
     ];
 
-    // Get current role safely, default to 'client' for UX
+    // Safely get current role from profile
     const currentRole = profile?.role || 'client';
-    const filteredMenu = menuItems.filter(item => item.roles.includes(currentRole));
+
+    // Sort and filter menu based on role permissions
+    const filteredMenu = menuItems.filter(item => {
+        if (!item.roles) return true;
+        return item.roles.includes(currentRole);
+    });
 
     return (
         <aside className="sidebar">
-            <Link to="/" className="sidebar-logo" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to="/" className="sidebar-logo">
                 <div className="logo-icon">ZF</div>
                 <span className="logo-text">ZenithFlow</span>
             </Link>
@@ -75,7 +85,7 @@ export default function Sidebar() {
                         )}
                     </div>
                     <div className="user-info">
-                        <p className="user-name">{profile?.full_name || 'Usuario'}</p>
+                        <p className="user-name">{profile?.full_name || user?.email?.split('@')[0] || 'Cargando...'}</p>
                         <p className="user-role">
                             {currentRole === 'superadmin' ? 'Super Administrador' :
                                 currentRole === 'branch_manager' ? 'Gerente de Sede' :
@@ -88,10 +98,23 @@ export default function Sidebar() {
                     onClick={handleLogout}
                     className="logout-btn"
                     type="button"
-                    style={{ cursor: 'pointer', zIndex: 100 }}
+                    style={{
+                        cursor: 'pointer',
+                        width: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px',
+                        padding: '12px',
+                        borderRadius: '10px',
+                        background: '#fff1f2',
+                        color: '#e11d48',
+                        border: '1px solid #fda4af',
+                        transition: 'all 0.2s ease',
+                        marginTop: '10px'
+                    }}
                 >
                     <LogOut size={18} />
-                    <span>Cerrar Sesión</span>
+                    <span style={{ fontWeight: '600' }}>Cerrar Sesión</span>
                 </button>
             </div>
         </aside>

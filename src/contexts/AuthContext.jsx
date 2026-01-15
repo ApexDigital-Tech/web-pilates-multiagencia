@@ -12,52 +12,82 @@ export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(true)
     const [configError, setConfigError] = useState(null)
 
+    const fetchProfile = async (userId) => {
+        console.log('Fetching profile for:', userId);
+        try {
+            const { data, error } = await supabase
+                .from('profiles')
+                .select('*, organizations(*)')
+                .eq('id', userId)
+                .single()
+
+            if (error) {
+                console.error('Profile fetch error:', error);
+                // Si el error es que no existe el perfil, podemos crear uno básico o dejarlo como null
+                if (error.code === 'PGRST116') {
+                    console.warn('No hay perfil en DB para este usuario.');
+                }
+                return null;
+            }
+
+            console.log('Profile loaded successfully:', data);
+            return data;
+        } catch (error) {
+            console.error('Profile fetch exception:', error);
+            return null;
+        }
+    }
+
     useEffect(() => {
         let isMounted = true;
 
         if (!isSupabaseConfigured) {
-            setConfigError('Las credenciales de Supabase no están configuradas correctamente en Vercel (VITE_SUPABASE_URL o VITE_SUPABASE_ANON_KEY faltan o son inválidas).')
+            setConfigError('Configuración de Supabase incompleta en Vercel.')
             setLoading(false)
             return;
         }
 
-        const initSession = async () => {
-            const timeout = setTimeout(() => {
-                if (isMounted && loading) {
-                    setLoading(false);
-                }
-            }, 5000);
-
+        const initialize = async () => {
             try {
-                const { data, error } = await supabase.auth.getSession()
+                // 1. Get initial session
+                const { data: { session: initialSession }, error } = await supabase.auth.getSession()
                 if (error) throw error;
 
                 if (isMounted) {
-                    setSession(data.session)
-                    setUser(data.session?.user ?? null)
-                    if (data.session?.user) {
-                        await fetchProfile(data.session.user.id)
+                    setSession(initialSession)
+                    setUser(initialSession?.user ?? null)
+
+                    if (initialSession?.user) {
+                        const profileData = await fetchProfile(initialSession.user.id)
+                        setProfile(profileData)
                     }
                 }
             } catch (err) {
                 console.error('Auth initialization error:', err)
             } finally {
-                clearTimeout(timeout);
                 if (isMounted) setLoading(false);
             }
         }
 
-        initSession()
+        initialize()
 
+        // 2. Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
-            async (_event, session) => {
-                if (!isMounted) return;
-                setSession(session)
-                setUser(session?.user ?? null)
-                if (session?.user) {
-                    await fetchProfile(session.user.id)
-                } else {
-                    setProfile(null)
+            async (event, currentSession) => {
+                console.log('Auth event:', event);
+
+                if (isMounted) {
+                    setSession(currentSession)
+                    setUser(currentSession?.user ?? null)
+
+                    if (currentSession?.user) {
+                        const profileData = await fetchProfile(currentSession.user.id)
+                        setProfile(profileData)
+                    } else {
+                        setProfile(null)
+                    }
+
+                    // Aseguramos que el estado de carga termine en cualquier cambio de auth
                     setLoading(false)
                 }
             }
@@ -68,23 +98,6 @@ export const AuthProvider = ({ children }) => {
             subscription.unsubscribe();
         }
     }, [])
-
-    const fetchProfile = async (userId) => {
-        try {
-            const { data, error } = await supabase
-                .from('profiles')
-                .select('*, organizations(*)')
-                .eq('id', userId)
-                .single()
-
-            if (error && error.code !== 'PGRST116') {
-                console.error('Error fetching profile:', error)
-            }
-            setProfile(data)
-        } catch (error) {
-            console.error('Profile fetch exception:', error)
-        }
-    }
 
     const value = {
         session,
@@ -97,40 +110,24 @@ export const AuthProvider = ({ children }) => {
 
     if (configError) {
         return (
-            <div style={{ padding: '2rem', textAlign: 'center', background: '#fff', fontFamily: 'sans-serif', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h1 style={{ color: '#ef4444', fontSize: '2rem', marginBottom: '1rem' }}>⚠️ Error de Configuración</h1>
-                <p style={{ maxWidth: '600px', margin: '0 auto 2rem', color: '#666', lineHeight: '1.5' }}>{configError}</p>
-                <div style={{ padding: '1.5rem', background: '#f8fafc', borderRadius: '12px', textAlign: 'left', display: 'inline-block', border: '1px solid #e2e8f0', margin: '0 auto' }}>
-                    <strong style={{ color: '#1e293b' }}>Cómo solucionarlo en Vercel:</strong>
-                    <ol style={{ marginTop: '1rem', color: '#475569', lineHeight: '1.8' }}>
-                        <li>Ve a tu proyecto en <b>Vercel</b>.</li>
-                        <li>Entra en <b>Settings</b> - <b>Environment Variables</b>.</li>
-                        <li>Añade <b>VITE_SUPABASE_URL</b> (Ej: <i>https://abc.supabase.co</i>).</li>
-                        <li>Añade <b>VITE_SUPABASE_ANON_KEY</b> (Tu llave larga).</li>
-                        <li>Ve a <b>Deployments</b> y haz un <b>Redeploy</b> del último commit.</li>
-                    </ol>
-                </div>
-            </div>
-        )
-    }
-
-    if (loading) {
-        return (
-            <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
-                <div style={{ textAlign: 'center' }}>
-                    <div style={{ width: '40px', height: '40px', border: '3px solid #e2e8f0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
-                    <p style={{ fontSize: '1.1rem', color: '#64748b', fontWeight: '500' }}>Iniciando ZenithFlow...</p>
-                </div>
-                <style>{`
-                    @keyframes spin { to { transform: rotate(360deg); } }
-                `}</style>
+            <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'sans-serif' }}>
+                <h1>⚠️ Error de Configuración</h1>
+                <p>{configError}</p>
             </div>
         )
     }
 
     return (
         <AuthContext.Provider value={value}>
-            {children}
+            {!loading ? children : (
+                <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
+                    <div style={{ textAlign: 'center' }}>
+                        <div style={{ width: '40px', height: '40px', border: '3px solid #e2e8f0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
+                        <p style={{ fontSize: '1.1rem', color: '#64748b' }}>Cargando ZenithFlow...</p>
+                    </div>
+                </div>
+            )}
+            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
         </AuthContext.Provider>
     )
 }
