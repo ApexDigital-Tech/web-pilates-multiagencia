@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>SuperAdmin Global Dashboard | ZenithFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                        "slate-custom": "#1e293b",
+                        "teal-muted": "#0f766e"
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-custom dark:text-slate-100 transition-colors duration-200">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar Navigation -->
+<aside class="w-64 flex-shrink-0 border-r border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex flex-col justify-between">
+<div class="p-6">
+<div class="flex items-center gap-3 mb-10">
+<div class="bg-primary size-10 rounded-lg flex items-center justify-center text-background-dark">
+<span class="material-symbols-outlined font-bold">bubble_chart</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-slate-custom dark:text-white text-lg font-extrabold leading-tight">ZenithFlow</h1>
+<p class="text-teal-muted dark:text-primary text-xs font-semibold tracking-wider uppercase">SuperAdmin</p>
+</div>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-primary/10 text-slate-custom dark:text-primary font-bold" href="#">
+<span class="material-symbols-outlined">corporate_fare</span>
+<span class="text-sm">Organizations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">distance</span>
+<span class="text-sm">Locations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">loyalty</span>
+<span class="text-sm">Plans</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="text-sm">Global Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">group</span>
+<span class="text-sm">User Management</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-slate-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="text-sm">System Settings</span>
+</a>
+</nav>
+</div>
+<div class="p-6 border-t border-slate-100 dark:border-slate-800">
+<button class="w-full bg-primary hover:bg-primary/90 text-slate-900 font-bold py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 transition-all">
+<span class="material-symbols-outlined text-sm">add_circle</span>
+<span class="text-sm">New Org</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col min-w-0 bg-background-light dark:bg-background-dark overflow-y-auto">
+<!-- Top Navigation Bar -->
+<header class="h-16 border-b border-slate-200 dark:border-slate-800 bg-white dark:bg-background-dark flex items-center justify-between px-8 sticky top-0 z-10">
+<div class="flex items-center flex-1 max-w-xl">
+<div class="relative w-full group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="w-full bg-slate-50 dark:bg-slate-900 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-1 focus:ring-primary transition-all" placeholder="Search organizations, locations, or members..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg cursor-pointer hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors">
+<div class="size-6 bg-teal-muted rounded text-white flex items-center justify-center text-[10px] font-bold">ZF</div>
+<span class="text-xs font-semibold text-slate-600 dark:text-slate-300">Zenith Global</span>
+<span class="material-symbols-outlined text-sm text-slate-400">expand_more</span>
+</div>
+<div class="flex gap-3 text-slate-400">
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+<button class="hover:text-primary transition-colors"><span class="material-symbols-outlined">help</span></button>
+</div>
+<div class="flex items-center gap-3 border-l border-slate-200 dark:border-slate-800 pl-6">
+<div class="text-right">
+<p class="text-sm font-bold leading-none">Alex Rivera</p>
+<p class="text-[10px] text-teal-muted dark:text-primary font-bold uppercase tracking-tight">Master Admin</p>
+</div>
+<div class="size-9 rounded-full bg-cover bg-center border-2 border-primary/20" data-alt="User profile avatar of Alex Rivera" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDomCdpwM3CXB7mblJphBxhIq9oCePo7hDY47_oDPV8BuF_bsr_kwukkDrVF6QgDYNMbu9si160zNwx4ZKRniY743X4X0O2EDZmmO2VKBBDkwh6dFS156GNScizwXNi47iAfVvpsoZTKXyfl8RToh6VoiFSt00a0TsNQq4U9vXgJqC7_JfKVq_qI29DO8DXqjWwyxEc7--Os6khMqZV6uv4widyG9O0TC0_sA1Lib6yvA8ZKGGuJc1wDKIFaWcgd9qMNtHDqncOpc8');"></div>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-8">
+<div class="flex items-end justify-between mb-8">
+<div>
+<h2 class="text-2xl font-extrabold tracking-tight">Global Overview</h2>
+<p class="text-slate-500 text-sm">Real-time performance across all 24 franchises.</p>
+</div>
+<div class="flex gap-2">
+<button class="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">calendar_today</span>
+                            Last 30 Days
+                        </button>
+<button class="px-4 py-2 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">download</span>
+                            Export
+                        </button>
+</div>
+</div>
+<!-- KPI Stats Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Total Revenue</span>
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] font-bold">+12.5%</span>
+</div>
+<div class="flex items-baseline gap-2">
+<p class="text-2xl font-black">$428,500</p>
+</div>
+<div class="mt-4 h-12 w-full">
+<!-- SVG Mini Sparkline -->
+<svg class="w-full h-full" viewbox="0 0 100 20">
+<path d="M0 15 Q 10 5, 20 12 T 40 8 T 60 14 T 80 5 T 100 10" fill="none" stroke="#13ec5b" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Active Members</span>
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] font-bold">+3.1%</span>
+</div>
+<p class="text-2xl font-black">12,450</p>
+<p class="text-slate-400 text-[10px] mt-1 font-medium italic">Across 24 locations</p>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Monthly Growth</span>
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] font-bold">+0.5%</span>
+</div>
+<p class="text-2xl font-black">8.2%</p>
+<div class="mt-3 w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[82%]"></div>
+</div>
+</div>
+<div class="bg-white dark:bg-slate-900 p-6 rounded-xl border border-slate-200 dark:border-slate-800 shadow-sm">
+<div class="flex items-center justify-between mb-2">
+<span class="text-slate-500 dark:text-slate-400 text-xs font-bold uppercase tracking-wider">Avg. Attendance</span>
+<span class="text-primary bg-primary/10 px-2 py-0.5 rounded text-[10px] font-bold">+2.0%</span>
+</div>
+<p class="text-2xl font-black">76%</p>
+<div class="mt-3 flex gap-1 items-center">
+<span class="material-symbols-outlined text-primary text-xs font-bold">trending_up</span>
+<p class="text-slate-400 text-[10px] font-medium">Outperforming last quarter</p>
+</div>
+</div>
+</div>
+<!-- Charts & Tables Section -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Table Section (High Density) -->
+<div class="lg:col-span-2 bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-sm flex flex-col">
+<div class="p-5 border-b border-slate-100 dark:border-slate-800 flex justify-between items-center">
+<h3 class="font-extrabold text-slate-custom dark:text-white">Locations Performance</h3>
+<button class="text-primary text-xs font-bold hover:underline">View All Locations</button>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-slate-50/50 dark:bg-slate-800/50">
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Location Name</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Manager</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Monthly Revenue</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Occupancy</th>
+<th class="px-6 py-4 text-xs font-bold uppercase tracking-wider text-slate-400">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-slate-100 dark:divide-slate-800">
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-bold text-sm">ZenithFlow Downtown</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Sarah Jenkins</td>
+<td class="px-6 py-4 text-sm font-semibold">$54,200</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+<span class="text-xs font-bold">92%</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 uppercase">Active</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-bold text-sm">West End Pilates</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Marcus Chen</td>
+<td class="px-6 py-4 text-sm font-semibold">$38,900</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[78%]"></div>
+</div>
+<span class="text-xs font-bold">78%</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 uppercase">Active</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-bold text-sm">North Heights</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Eliza Beth</td>
+<td class="px-6 py-4 text-sm font-semibold">$41,000</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[64%]"></div>
+</div>
+<span class="text-xs font-bold">64%</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400 uppercase">Warning</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-bold text-sm">Zenith Bayside</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Tom Hollander</td>
+<td class="px-6 py-4 text-sm font-semibold">$22,100</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[45%]"></div>
+</div>
+<span class="text-xs font-bold">45%</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-400 uppercase">Maintenance</span>
+</td>
+</tr>
+<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
+<td class="px-6 py-4 font-bold text-sm">East Valley Hub</td>
+<td class="px-6 py-4 text-sm text-slate-500 dark:text-slate-400">Sasha V.</td>
+<td class="px-6 py-4 text-sm font-semibold">$62,800</td>
+<td class="px-6 py-4">
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-slate-100 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[88%]"></div>
+</div>
+<span class="text-xs font-bold">88%</span>
+</div>
+</td>
+<td class="px-6 py-4">
+<span class="px-2 py-1 rounded text-[10px] font-bold bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400 uppercase">Active</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<!-- Side Chart/Info Panel -->
+<div class="flex flex-col gap-8">
+<div class="bg-white dark:bg-slate-900 rounded-xl border border-slate-200 dark:border-slate-800 p-6 shadow-sm">
+<h3 class="font-extrabold mb-4 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">show_chart</span>
+                                Revenue vs. Growth
+                            </h3>
+<div class="space-y-4">
+<div>
+<div class="flex justify-between text-xs font-bold mb-1">
+<span class="text-slate-400">Revenue Contribution</span>
+<span class="text-primary">$428.5k</span>
+</div>
+<div class="w-full bg-slate-100 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[75%]"></div>
+</div>
+</div>
+<div class="p-4 bg-background-light dark:bg-slate-800/30 rounded-lg">
+<p class="text-xs font-medium text-slate-500 leading-relaxed italic">
+                                        "Projected 15% growth for Q3 based on current member acquisition trends in East and West regions."
+                                    </p>
+</div>
+<div class="pt-2">
+<button class="w-full py-2 border-2 border-primary/20 hover:border-primary/40 text-xs font-bold rounded-lg transition-all">
+                                        Generate Full Report
+                                    </button>
+</div>
+</div>
+</div>
+<div class="bg-slate-900 dark:bg-primary/10 rounded-xl p-6 text-white shadow-lg overflow-hidden relative">
+<div class="relative z-10">
+<h3 class="font-extrabold mb-1">Scale with ZenithFlow</h3>
+<p class="text-[10px] text-slate-400 dark:text-primary uppercase font-black tracking-widest mb-4">Enterprise Plan</p>
+<p class="text-xs text-slate-300 dark:text-slate-300 leading-relaxed mb-6">You've reached 85% of your location limit. Ready to expand your franchise network?</p>
+<button class="bg-white text-slate-900 px-4 py-2 rounded font-bold text-xs hover:bg-primary transition-colors">
+                                    Upgrade License
+                                </button>
+</div>
+<span class="material-symbols-outlined absolute -bottom-6 -right-6 text-9xl text-white/5 pointer-events-none">rocket_launch</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>

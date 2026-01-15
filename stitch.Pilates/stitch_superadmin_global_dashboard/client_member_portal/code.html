@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ZenithFlow | Client Portal</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f8fcf9",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d1b12] dark:text-white min-h-screen">
+<div class="layout-container flex flex-col min-h-screen">
+<!-- Top Navigation -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-[#e7f3eb] dark:border-[#1e3a28] px-10 py-3 bg-white dark:bg-background-dark sticky top-0 z-50">
+<div class="flex items-center gap-4 text-[#0d1b12] dark:text-white">
+<div class="size-6 text-primary">
+<svg fill="currentColor" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M24 45.8096C19.6865 45.8096 15.4698 44.5305 11.8832 42.134C8.29667 39.7376 5.50128 36.3314 3.85056 32.3462C2.19985 28.361 1.76794 23.9758 2.60947 19.7452C3.451 15.5145 5.52816 11.6284 8.57829 8.5783C11.6284 5.52817 15.5145 3.45101 19.7452 2.60948C23.9758 1.76795 28.361 2.19986 32.3462 3.85057C36.3314 5.50129 39.7376 8.29668 42.134 11.8833C44.5305 15.4698 45.8096 19.6865 45.8096 24L24 24L24 45.8096Z"></path>
+</svg>
+</div>
+<h2 class="text-xl font-extrabold leading-tight tracking-[-0.015em]">ZenithFlow</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8 items-center">
+<nav class="flex items-center gap-9">
+<a class="text-[#0d1b12] dark:text-white text-sm font-bold leading-normal border-b-2 border-primary" href="#">Home</a>
+<a class="text-[#4c9a66] dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Bookings</a>
+<a class="text-[#4c9a66] dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Plans</a>
+<a class="text-[#4c9a66] dark:text-gray-400 text-sm font-medium leading-normal hover:text-primary transition-colors" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-gray-500 cursor-pointer hover:text-primary">notifications</span>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary/20" data-alt="User profile picture with minimalist background" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuCJCUc3UxQYd9Gkw8K2L3TyeuMZy14ofWo4W0pAB1M73mHQ8v2DetbMngBvr_nJa8YjbXGBctHT9_rWPZ7WH60QvtCMybn0wYKQuHCxhafE8DjAwMgzml_9xcY_V2s4GQwQU3MHvYniHLCWbNroX1bhV5vTFn2qJs-o9oDSJorFMlGYujn_zZCSw9k4KKRGZi2IfQm-a4QgyJKVkbjg_UJnuMWblZksAQXp5tTOIhhoqdEqkkpLrqKyXPi-11eV_KTKoLUVqenJNsc");'>
+</div>
+</div>
+</div>
+</header>
+<main class="flex-1 max-w-[1200px] mx-auto w-full px-6 py-10">
+<!-- Welcome Header -->
+<div class="flex flex-wrap justify-between items-end gap-3 mb-8">
+<div class="flex min-w-72 flex-col gap-1">
+<h1 class="text-[#0d1b12] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">Welcome back, Alex</h1>
+<p class="text-[#4c9a66] dark:text-gray-400 text-base font-normal">Your next session is in <span class="font-bold text-[#0d1b12] dark:text-primary">2 days</span>.</p>
+</div>
+<button class="bg-primary text-[#0d1b12] font-bold px-6 py-3 rounded-lg flex items-center gap-2 hover:shadow-lg transition-all active:scale-95">
+<span class="material-symbols-outlined text-xl">calendar_today</span>
+                    Book New Class
+                </button>
+</div>
+<!-- Stats / Wallet Cards -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-[#cfe7d7] dark:border-[#1e3a28] bg-white dark:bg-background-dark shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#4c9a66] text-sm font-bold uppercase tracking-wider">Remaining Credits</p>
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<p class="text-[#0d1b12] dark:text-white tracking-tight text-3xl font-black">12 Credits</p>
+<a class="text-primary text-xs font-bold hover:underline mt-2" href="#">Top up balance →</a>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-[#cfe7d7] dark:border-[#1e3a28] bg-white dark:bg-background-dark shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#4c9a66] text-sm font-bold uppercase tracking-wider">Membership</p>
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+<p class="text-[#0d1b12] dark:text-white tracking-tight text-3xl font-black">Gold Member</p>
+<p class="text-[#4c9a66] text-xs font-medium">Renews on Oct 12, 2023</p>
+</div>
+<div class="flex flex-col gap-2 rounded-xl p-6 border border-[#cfe7d7] dark:border-[#1e3a28] bg-white dark:bg-background-dark shadow-sm">
+<div class="flex justify-between items-start">
+<p class="text-[#4c9a66] text-sm font-bold uppercase tracking-wider">Total Sessions</p>
+<span class="material-symbols-outlined text-primary">fitness_center</span>
+</div>
+<p class="text-[#0d1b12] dark:text-white tracking-tight text-3xl font-black">48 Completed</p>
+<p class="text-[#4c9a66] text-xs font-medium">8 sessions this month</p>
+</div>
+</div>
+<!-- Booking Section -->
+<div class="mb-12">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-[#0d1b12] dark:text-white text-2xl font-extrabold tracking-tight">Book a Class</h2>
+<div class="flex gap-2">
+<button class="p-2 border border-[#cfe7d7] rounded-lg hover:bg-gray-50"><span class="material-symbols-outlined">chevron_left</span></button>
+<button class="p-2 border border-[#cfe7d7] rounded-lg hover:bg-gray-50"><span class="material-symbols-outlined">chevron_right</span></button>
+</div>
+</div>
+<!-- Filters -->
+<div class="pb-6">
+<div class="flex border-b border-[#cfe7d7] dark:border-[#1e3a28] gap-8">
+<a class="flex flex-col items-center justify-center border-b-[3px] border-primary text-[#0d1b12] dark:text-white pb-3 pt-2" href="#">
+<p class="text-sm font-bold">All Locations</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-[#4c9a66] pb-3 pt-2 hover:text-primary transition-colors" href="#">
+<p class="text-sm font-bold">Downtown Studio</p>
+</a>
+<a class="flex flex-col items-center justify-center border-b-[3px] border-transparent text-[#4c9a66] pb-3 pt-2 hover:text-primary transition-colors" href="#">
+<p class="text-sm font-bold">Westside Branch</p>
+</a>
+</div>
+</div>
+<!-- Class Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Class 1 -->
+<div class="bg-white dark:bg-background-dark border border-[#cfe7d7] dark:border-[#1e3a28] rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-32 bg-cover bg-center" data-alt="Pilates reformer equipment in sunny studio" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCdljvK_nYF0MRrL9JjVJ5r9V5bZzJ3i4dm6jP4jm-oLjvnVWByZjtfEM2l30fNPamq1L2NzkApwLLULv56MRWNO8NG9vwmdr2--fqNKOwRQN4GzEt9mmSZ4quyg4MmiaMW5K2H7XXjm_ErKKC_mMTHdcv5iK4Kq1D_Bw3gj2IQd_cRjJf9FE1M4zvJzR-zqDPp0yW93O4sSvxpqnnE0Mvmf_QYHhgFNBVF5S-8urAgyhqcGGBphKW9mzRQqJkpl8s6vt4wa6ndXA8');"></div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold uppercase text-primary bg-primary/10 px-2 py-0.5 rounded">Reformer Flow</span>
+<span class="text-xs font-bold text-[#4c9a66]">6:00 AM</span>
+</div>
+<h3 class="font-bold text-lg mb-1 dark:text-white">Sunrise Strength</h3>
+<p class="text-xs text-gray-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person</span> Coach Sarah
+                            </p>
+<button class="w-full py-2 bg-[#f0faf2] dark:bg-[#1e3a28] text-[#0d1b12] dark:text-white text-sm font-bold rounded-lg group-hover:bg-primary transition-colors">Book Now</button>
+</div>
+</div>
+<!-- Class 2 -->
+<div class="bg-white dark:bg-background-dark border border-[#cfe7d7] dark:border-[#1e3a28] rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-32 bg-cover bg-center" data-alt="Person practicing core balance on mat" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCIcro3d9YyIY_VhdAg0QZAwZSRQWxbMDZwAdDHIGbFS0Y2d-2PE-Ohn-rai_dck1b6IOUNItnbXEVpj0xDoHLQBVU1KsvY3tBlC0Xl_jDqbpllaoBNtjNpvN5knTRc_fVUn_6hYbtaAHYlmFCDTIFOoNUYsxITo_phZZkShOVYF2SfAarVhyOusI5hk_2gEEZ6s_jvAQIzL7JmQ4viKSOaIKzqaCSz9qxqzXkBVFfVLfcgDQoHLVvS4niMfNqHa8xsvoiNoowuLGQ');"></div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold uppercase text-primary bg-primary/10 px-2 py-0.5 rounded">Classic Mat</span>
+<span class="text-xs font-bold text-[#4c9a66]">8:30 AM</span>
+</div>
+<h3 class="font-bold text-lg mb-1 dark:text-white">Core Alignment</h3>
+<p class="text-xs text-gray-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person</span> Coach Michael
+                            </p>
+<button class="w-full py-2 bg-[#f0faf2] dark:bg-[#1e3a28] text-[#0d1b12] dark:text-white text-sm font-bold rounded-lg group-hover:bg-primary transition-colors">Book Now</button>
+</div>
+</div>
+<!-- Class 3 -->
+<div class="bg-white dark:bg-background-dark border border-[#cfe7d7] dark:border-[#1e3a28] rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-32 bg-cover bg-center" data-alt="Zen yoga studio with plants" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCd2byBY7JyftyQ-P90jvxFh9T2EKZa5Z95eJubCp9LBstuvkwa-d32u1xiOxCXHTzosYe7-qjN75pUYiwOFNJI2lXDuNa8lyepW-T8qJ25-SjusGO9pNRtBaTZ57TchVBrpgLBR8GougZwVu4qnZV_p2NARuR7JEpWlLEHzQTCpxFcoAn4dIPHGSeGzrfahPZd_-5tx9EZXoBd1z9ss5-dpPNWpWyYy_wHwrk6z8fUU7EsccwIVhEKPR3LB6XTItRTAQ-kBh8M5gw');"></div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold uppercase text-primary bg-primary/10 px-2 py-0.5 rounded">Power Yoga</span>
+<span class="text-xs font-bold text-[#4c9a66]">12:00 PM</span>
+</div>
+<h3 class="font-bold text-lg mb-1 dark:text-white">Zen Lunch Session</h3>
+<p class="text-xs text-gray-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person</span> Coach Elena
+                            </p>
+<button class="w-full py-2 bg-[#f0faf2] dark:bg-[#1e3a28] text-[#0d1b12] dark:text-white text-sm font-bold rounded-lg group-hover:bg-primary transition-colors">Book Now</button>
+</div>
+</div>
+<!-- Class 4 -->
+<div class="bg-white dark:bg-background-dark border border-[#cfe7d7] dark:border-[#1e3a28] rounded-xl overflow-hidden hover:shadow-md transition-shadow group">
+<div class="h-32 bg-cover bg-center" data-alt="Person stretching on a reformer" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMvYWD13idIN3ulsxy6iQKXJMtlLSR5XNR-ey9KhWp3RAppfAqs73by2-Qs03x4idnwYLNJ-Gkqo9rZmoSNN3gM_cN5HNwndbyE1iGjb0aqOfnV4uCf102oR9AXf9CbpdnONfk06jXzCi_Cnq9M26A9ZaOKJWW8W9VSOougHKrNa_YquBMFzvFruuYg33ozfgO5vQGNQUueuKUQsD8vQkfEyN1Jnnn1okKjxzGFvF9p_VtZIYnuVlJueX52ZDNUv_JkhiqmiGQqhM');"></div>
+<div class="p-4">
+<div class="flex justify-between items-start mb-1">
+<span class="text-[10px] font-bold uppercase text-primary bg-primary/10 px-2 py-0.5 rounded">Advanced</span>
+<span class="text-xs font-bold text-[#4c9a66]">5:30 PM</span>
+</div>
+<h3 class="font-bold text-lg mb-1 dark:text-white">Dynamic Flow</h3>
+<p class="text-xs text-gray-500 mb-4 flex items-center gap-1">
+<span class="material-symbols-outlined text-sm">person</span> Coach David
+                            </p>
+<button class="w-full py-2 bg-[#f0faf2] dark:bg-[#1e3a28] text-[#0d1b12] dark:text-white text-sm font-bold rounded-lg group-hover:bg-primary transition-colors">Book Now</button>
+</div>
+</div>
+</div>
+</div>
+<!-- Booking History -->
+<div>
+<h2 class="text-[#0d1b12] dark:text-white text-2xl font-extrabold tracking-tight mb-6">Booking History</h2>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead class="bg-gray-50 dark:bg-background-dark/50 border-b border-[#cfe7d7] dark:border-[#1e3a28]">
+<tr>
+<th class="px-4 py-4 font-bold text-sm text-[#4c9a66]">Class &amp; Instructor</th>
+<th class="px-4 py-4 font-bold text-sm text-[#4c9a66]">Date &amp; Time</th>
+<th class="px-4 py-4 font-bold text-sm text-[#4c9a66]">Location</th>
+<th class="px-4 py-4 font-bold text-sm text-[#4c9a66]">Status</th>
+<th class="px-4 py-4 font-bold text-sm text-[#4c9a66] text-right">Action</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#cfe7d7] dark:divide-[#1e3a28]">
+<!-- Row 1 -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-4 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-lg">spa</span>
+</div>
+<div>
+<p class="font-bold text-sm dark:text-white">Reformer Basics</p>
+<p class="text-xs text-gray-500">Coach Sarah</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-5">
+<p class="text-sm font-medium dark:text-white">Sep 28, 2023</p>
+<p class="text-xs text-gray-500">10:00 AM - 11:00 AM</p>
+</td>
+<td class="px-4 py-5">
+<p class="text-sm dark:text-white">Downtown Studio</p>
+</td>
+<td class="px-4 py-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-[#e8fbf0] text-[#0d1b12]">
+<span class="w-1.5 h-1.5 rounded-full bg-primary mr-1.5"></span>
+                                        Confirmed
+                                    </span>
+</td>
+<td class="px-4 py-5 text-right">
+<button class="text-gray-400 hover:text-red-500 text-xs font-bold">Cancel</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-gray-50 transition-colors">
+<td class="px-4 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-gray-200 flex items-center justify-center text-gray-500">
+<span class="material-symbols-outlined text-lg">accessibility_new</span>
+</div>
+<div>
+<p class="font-bold text-sm dark:text-white">Deep Stretch</p>
+<p class="text-xs text-gray-500">Coach Liam</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-5">
+<p class="text-sm font-medium dark:text-white">Sep 25, 2023</p>
+<p class="text-xs text-gray-500">04:30 PM - 05:30 PM</p>
+</td>
+<td class="px-4 py-5">
+<p class="text-sm dark:text-white">Westside Branch</p>
+</td>
+<td class="px-4 py-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-gray-100 text-gray-600">
+<span class="w-1.5 h-1.5 rounded-full bg-gray-400 mr-1.5"></span>
+                                        Attended
+                                    </span>
+</td>
+<td class="px-4 py-5 text-right">
+<button class="text-primary text-xs font-bold">Review</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-gray-50 transition-colors opacity-70">
+<td class="px-4 py-5">
+<div class="flex items-center gap-3">
+<div class="size-8 rounded-full bg-red-100 flex items-center justify-center text-red-400">
+<span class="material-symbols-outlined text-lg">close</span>
+</div>
+<div>
+<p class="font-bold text-sm dark:text-white line-through">Power Pilates</p>
+<p class="text-xs text-gray-500">Coach Michael</p>
+</div>
+</div>
+</td>
+<td class="px-4 py-5">
+<p class="text-sm font-medium dark:text-white">Sep 20, 2023</p>
+<p class="text-xs text-gray-500">07:00 AM</p>
+</td>
+<td class="px-4 py-5">
+<p class="text-sm dark:text-white">Downtown Studio</p>
+</td>
+<td class="px-4 py-5">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-red-50 text-red-500">
+                                        Cancelled
+                                    </span>
+</td>
+<td class="px-4 py-5 text-right">
+<button class="text-gray-400 text-xs font-bold">-</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+<!-- Minimal Footer -->
+<footer class="mt-auto border-t border-[#e7f3eb] dark:border-[#1e3a28] py-8 bg-white dark:bg-background-dark">
+<div class="max-w-[1200px] mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-[#4c9a66]">
+<span class="material-symbols-outlined text-sm">copyright</span>
+<span class="text-xs font-medium">2023 ZenithFlow Management Systems. All rights reserved.</span>
+</div>
+<div class="flex gap-6">
+<a class="text-xs text-[#4c9a66] hover:text-primary" href="#">Support</a>
+<a class="text-xs text-[#4c9a66] hover:text-primary" href="#">Privacy Policy</a>
+<a class="text-xs text-[#4c9a66] hover:text-primary" href="#">Terms of Service</a>
+</div>
+</div>
+</footer>
+</div>
+</body></html>

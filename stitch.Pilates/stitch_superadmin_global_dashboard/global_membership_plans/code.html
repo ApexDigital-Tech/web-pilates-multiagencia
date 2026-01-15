@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Global Membership Plans | ZenithFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        "display": ["Manrope"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Manrope', sans-serif;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cfe7d7;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d1b12] dark:text-white antialiased">
+<div class="flex h-screen overflow-hidden">
+<!-- Sidebar -->
+<aside class="w-64 border-r border-[#e7f3eb] dark:border-white/10 bg-white dark:bg-background-dark flex flex-col">
+<div class="p-6">
+<div class="flex items-center gap-3">
+<div class="bg-primary size-8 rounded-lg flex items-center justify-center">
+<span class="material-symbols-outlined text-[#0d1b12]">self_improvement</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-[#0d1b12] dark:text-white text-base font-bold leading-tight">ZenithFlow</h1>
+<p class="text-[#4c9a66] text-xs font-medium">Corporate Admin</p>
+</div>
+</div>
+</div>
+<nav class="flex-1 px-4 space-y-2 overflow-y-auto custom-scrollbar">
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">dashboard</span>
+<p class="text-sm font-medium">Dashboard</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 bg-primary/20 text-[#0d1b12] dark:text-white rounded-lg cursor-pointer">
+<span class="material-symbols-outlined text-primary-dark" style="font-variation-settings: 'FILL' 1">confirmation_number</span>
+<p class="text-sm font-bold">Membership Plans</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">location_on</span>
+<p class="text-sm font-medium">Locations</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">group</span>
+<p class="text-sm font-medium">Staff Management</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">bar_chart</span>
+<p class="text-sm font-medium">Analytics</p>
+</div>
+<div class="mt-8 px-3">
+<p class="text-[10px] uppercase tracking-wider font-bold text-[#4c9a66] mb-2">Franchise Tools</p>
+<div class="space-y-2">
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">account_balance</span>
+<p class="text-sm font-medium">Revenue Share</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">description</span>
+<p class="text-sm font-medium">Contracts</p>
+</div>
+</div>
+</div>
+</nav>
+<div class="p-4 border-t border-[#e7f3eb] dark:border-white/10">
+<div class="flex items-center gap-3 px-3 py-2 text-[#0d1b12] dark:text-white/70 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium">Settings</p>
+</div>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col overflow-hidden">
+<!-- Top Navbar -->
+<header class="h-16 border-b border-[#e7f3eb] dark:border-white/10 bg-white dark:bg-background-dark flex items-center justify-between px-8">
+<div class="flex items-center flex-1 max-w-md">
+<div class="relative w-full">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-[#4c9a66]">search</span>
+<input class="w-full bg-[#f6f8f6] dark:bg-white/5 border-none rounded-lg pl-10 pr-4 py-2 text-sm focus:ring-2 focus:ring-primary" placeholder="Search plans, credits, or pricing..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg relative">
+<span class="material-symbols-outlined text-[#0d1b12] dark:text-white">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white dark:border-background-dark"></span>
+</button>
+<button class="p-2 hover:bg-[#e7f3eb] dark:hover:bg-white/5 rounded-lg">
+<span class="material-symbols-outlined text-[#0d1b12] dark:text-white">help_outline</span>
+</button>
+<div class="h-8 w-[1px] bg-[#e7f3eb] dark:bg-white/10 mx-2"></div>
+<div class="flex items-center gap-3">
+<div class="text-right">
+<p class="text-sm font-bold dark:text-white">Alex Morgan</p>
+<p class="text-[10px] text-[#4c9a66] font-medium uppercase">Master Franchisor</p>
+</div>
+<div class="size-10 rounded-full bg-cover bg-center border-2 border-primary" data-alt="Corporate admin profile picture" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDCkajz5GhdGvFkE543UzqV8r44bSkG0HqrQQ9upjcOMN-zkHGs8UKGw0MRX4kRIkBfJClconHg2_v0GbJ-AGh21Zp12mk1inJHUdKbZiLis-hn1npZ_tJ1sZJb0uysT2L52REfGebkjylWNY6M58P2t6-kVQqYU_nG3FksFWhWoyFJEIuxZ4lmCut_Qp1USeWE5UoytQiG0YTF-lVz2NBbfxAO9brLsVNVmfdO_jz1PJMCYDiCGR-FKGEkh_r0B9FcYsAigYfKKzM')"></div>
+</div>
+</div>
+</header>
+<!-- Content Area -->
+<div class="flex-1 overflow-y-auto p-8 custom-scrollbar">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-4 text-sm font-medium">
+<a class="text-[#4c9a66] hover:text-[#0d1b12] dark:hover:text-white" href="#">Organization</a>
+<span class="material-symbols-outlined text-xs text-[#4c9a66]">chevron_right</span>
+<span class="text-[#0d1b12] dark:text-white">Membership Plans</span>
+</div>
+<!-- Page Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-8">
+<div class="max-w-2xl">
+<h2 class="text-4xl font-extrabold tracking-tight text-[#0d1b12] dark:text-white">Global Membership Plans</h2>
+<p class="text-[#4c9a66] mt-2 text-lg">Standardize tier pricing, credit allocations, and validity periods across all 42 franchise locations in the ZenithFlow network.</p>
+</div>
+<button class="bg-primary hover:bg-primary/90 text-[#0d1b12] font-bold px-6 py-3 rounded-lg flex items-center gap-2 transition-all shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined">add</span>
+<span>Create New Plan</span>
+</button>
+</div>
+<!-- Stats -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+<div class="bg-white dark:bg-white/5 p-6 rounded-xl border border-[#cfe7d7] dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined p-2 bg-primary/10 text-primary-dark rounded-lg">inventory_2</span>
+<span class="text-[#078829] text-sm font-bold bg-[#e7f3eb] px-2 py-1 rounded-full">+2 New</span>
+</div>
+<p class="text-[#4c9a66] text-sm font-medium">Total Active Plans</p>
+<p class="text-3xl font-extrabold mt-1">12</p>
+</div>
+<div class="bg-white dark:bg-white/5 p-6 rounded-xl border border-[#cfe7d7] dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined p-2 bg-blue-500/10 text-blue-600 rounded-lg">payments</span>
+<span class="text-[#4c9a66] text-sm font-bold bg-[#f6f8f6] px-2 py-1 rounded-full">Stable</span>
+</div>
+<p class="text-[#4c9a66] text-sm font-medium">Avg. Monthly Price</p>
+<p class="text-3xl font-extrabold mt-1">$149.00</p>
+</div>
+<div class="bg-white dark:bg-white/5 p-6 rounded-xl border border-[#cfe7d7] dark:border-white/10 shadow-sm">
+<div class="flex justify-between items-start mb-4">
+<span class="material-symbols-outlined p-2 bg-purple-500/10 text-purple-600 rounded-lg">group_add</span>
+<span class="text-[#e72a08] text-sm font-bold bg-red-50 px-2 py-1 rounded-full">-1.2%</span>
+</div>
+<p class="text-[#4c9a66] text-sm font-medium">Total Enrolled Members</p>
+<p class="text-3xl font-extrabold mt-1">2,450</p>
+</div>
+</div>
+<!-- Main Table Section -->
+<div class="bg-white dark:bg-white/5 rounded-xl border border-[#e7f3eb] dark:border-white/10 overflow-hidden shadow-sm">
+<div class="p-6 border-b border-[#e7f3eb] dark:border-white/10 flex flex-col md:flex-row md:items-center justify-between gap-4">
+<div class="flex items-center gap-4">
+<h3 class="font-bold text-lg">Active Plan Tiers</h3>
+<span class="bg-[#f6f8f6] dark:bg-white/10 text-[#4c9a66] text-xs font-bold px-3 py-1 rounded-full">3 Archived</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-[#cfe7d7] dark:border-white/10 rounded-lg hover:bg-[#f6f8f6] dark:hover:bg-white/5">
+<span class="material-symbols-outlined text-sm">filter_list</span>
+                                Filter
+                            </button>
+<button class="flex items-center gap-2 px-3 py-2 text-sm font-medium border border-[#cfe7d7] dark:border-white/10 rounded-lg hover:bg-[#f6f8f6] dark:hover:bg-white/5">
+<span class="material-symbols-outlined text-sm">download</span>
+                                Export
+                            </button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left">
+<thead>
+<tr class="bg-[#f8fcf9] dark:bg-white/5 text-[#4c9a66] text-[10px] uppercase tracking-wider font-bold">
+<th class="px-6 py-4">Plan Details</th>
+<th class="px-6 py-4 text-center">Price</th>
+<th class="px-6 py-4 text-center">Credits</th>
+<th class="px-6 py-4 text-center">Validity</th>
+<th class="px-6 py-4 text-center">Usage</th>
+<th class="px-6 py-4 text-center">Status</th>
+<th class="px-6 py-4"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-[#e7f3eb] dark:divide-white/10">
+<!-- Row 1 -->
+<tr class="hover:bg-[#f8fcf9] dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-5">
+<div>
+<p class="font-bold text-[#0d1b12] dark:text-white">Starter Pilates</p>
+<p class="text-xs text-[#4c9a66]">Basic entry level for casual practitioners.</p>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<p class="font-bold">$49.00</p>
+<p class="text-[10px] text-[#4c9a66]">per month</p>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-[#e7f3eb] dark:bg-primary/10 text-[#0d1b12] dark:text-primary font-bold px-3 py-1 rounded text-sm">4 Classes</span>
+</td>
+<td class="px-6 py-5 text-center text-sm font-medium">30 Days</td>
+<td class="px-6 py-5 text-center">
+<div class="flex items-center justify-center -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-blue-100 flex items-center justify-center text-[8px] font-bold">NY</div>
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-green-100 flex items-center justify-center text-[8px] font-bold">LA</div>
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-gray-200 flex items-center justify-center text-[8px] font-bold">+18</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<button class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-[#4c9a66] hover:text-[#0d1b12] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-[#f8fcf9] dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-5">
+<div>
+<p class="font-bold text-[#0d1b12] dark:text-white">Professional Flow</p>
+<p class="text-xs text-[#4c9a66]">Most popular tier for dedicated members.</p>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<p class="font-bold">$129.00</p>
+<p class="text-[10px] text-[#4c9a66]">per month</p>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-[#e7f3eb] dark:bg-primary/10 text-[#0d1b12] dark:text-primary font-bold px-3 py-1 rounded text-sm">12 Classes</span>
+</td>
+<td class="px-6 py-5 text-center text-sm font-medium">30 Days</td>
+<td class="px-6 py-5 text-center">
+<div class="flex items-center justify-center -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-yellow-100 flex items-center justify-center text-[8px] font-bold">TX</div>
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-indigo-100 flex items-center justify-center text-[8px] font-bold">FL</div>
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-gray-200 flex items-center justify-center text-[8px] font-bold">+34</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<button class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-[#4c9a66] hover:text-[#0d1b12] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-[#f8fcf9] dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-5">
+<div>
+<p class="font-bold text-[#0d1b12] dark:text-white">Unlimited Zenith</p>
+<p class="text-xs text-[#4c9a66]">Full access to all classes and amenities.</p>
+</div>
+</td>
+<td class="px-6 py-5 text-center">
+<p class="font-bold">$249.00</p>
+<p class="text-[10px] text-[#4c9a66]">per month</p>
+</td>
+<td class="px-6 py-5 text-center">
+<span class="bg-[#e7f3eb] dark:bg-primary/10 text-[#0d1b12] dark:text-primary font-bold px-3 py-1 rounded text-sm">∞ Credits</span>
+</td>
+<td class="px-6 py-5 text-center text-sm font-medium">30 Days</td>
+<td class="px-6 py-5 text-center">
+<div class="flex items-center justify-center -space-x-2">
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-red-100 flex items-center justify-center text-[8px] font-bold">CH</div>
+<div class="size-6 rounded-full border-2 border-white dark:border-background-dark bg-gray-200 flex items-center justify-center text-[8px] font-bold">+41</div>
+</div>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<button class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-primary focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="pointer-events-none inline-block h-5 w-5 translate-x-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-[#4c9a66] hover:text-[#0d1b12] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+<!-- Row 4 (Inactive) -->
+<tr class="bg-gray-50/50 dark:bg-white/5 hover:bg-[#f8fcf9] dark:hover:bg-white/5 transition-colors">
+<td class="px-6 py-5 opacity-60">
+<div>
+<p class="font-bold text-[#0d1b12] dark:text-white line-through">Off-Peak Special</p>
+<p class="text-xs text-[#4c9a66]">Restricted hours only.</p>
+</div>
+</td>
+<td class="px-6 py-5 text-center opacity-60">
+<p class="font-bold">$35.00</p>
+</td>
+<td class="px-6 py-5 text-center opacity-60">
+<span class="bg-gray-200 text-gray-600 font-bold px-3 py-1 rounded text-sm">5 Classes</span>
+</td>
+<td class="px-6 py-5 text-center text-sm font-medium opacity-60">30 Days</td>
+<td class="px-6 py-5 text-center opacity-60">
+<p class="text-[10px] font-bold">0 Locations</p>
+</td>
+<td class="px-6 py-5">
+<div class="flex justify-center">
+<button class="relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out bg-gray-200 dark:bg-white/10 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2">
+<span class="pointer-events-none inline-block h-5 w-5 translate-x-0 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"></span>
+</button>
+</div>
+</td>
+<td class="px-6 py-5 text-right">
+<button class="text-[#4c9a66] hover:text-[#0d1b12] dark:hover:text-white">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="p-6 border-t border-[#e7f3eb] dark:border-white/10 flex items-center justify-between">
+<p class="text-sm text-[#4c9a66]">Showing 1-4 of 12 Membership Plans</p>
+<div class="flex items-center gap-2">
+<button class="px-3 py-1 border border-[#cfe7d7] dark:border-white/10 rounded-lg text-sm disabled:opacity-50" disabled="">Previous</button>
+<button class="px-3 py-1 bg-primary/10 text-primary-dark font-bold rounded-lg text-sm">1</button>
+<button class="px-3 py-1 border border-[#cfe7d7] dark:border-white/10 rounded-lg text-sm">2</button>
+<button class="px-3 py-1 border border-[#cfe7d7] dark:border-white/10 rounded-lg text-sm">3</button>
+<button class="px-3 py-1 border border-[#cfe7d7] dark:border-white/10 rounded-lg text-sm">Next</button>
+</div>
+</div>
+</div>
+<!-- Corporate Note -->
+<div class="mt-8 p-4 bg-primary/5 border border-primary/20 rounded-xl flex gap-4">
+<span class="material-symbols-outlined text-primary-dark">info</span>
+<div>
+<p class="text-sm font-bold text-[#0d1b12] dark:text-white">Corporate Standardization Protocol</p>
+<p class="text-xs text-[#4c9a66] mt-1">Updates to these plans are pushed globally to all franchise kiosks and apps within 15 minutes. Deactivating a plan with active subscribers will trigger a manual migration workflow for affected locations.</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Right Side Drawer (New Plan) - Initially Hidden -->
+<div class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex justify-end transition-opacity opacity-0 pointer-events-none" id="drawer-backdrop">
+<div class="w-full max-w-md bg-white dark:bg-background-dark h-full shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300" id="drawer-content">
+<div class="p-6 border-b border-[#e7f3eb] dark:border-white/10 flex items-center justify-between">
+<div>
+<h3 class="text-xl font-bold">New Global Plan</h3>
+<p class="text-xs text-[#4c9a66]">Define standard tier parameters</p>
+</div>
+<button class="p-2 hover:bg-[#f6f8f6] dark:hover:bg-white/5 rounded-full" onclick="toggleDrawer()">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scrollbar">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#4c9a66]">Plan Name</label>
+<input class="w-full bg-[#f6f8f6] dark:bg-white/5 border border-[#cfe7d7] dark:border-white/10 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="e.g. Platinum Plus" type="text"/>
+</div>
+<div class="grid grid-cols-2 gap-4">
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#4c9a66]">Base Price ($)</label>
+<input class="w-full bg-[#f6f8f6] dark:bg-white/5 border border-[#cfe7d7] dark:border-white/10 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="0.00" type="number"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#4c9a66]">Credits</label>
+<input class="w-full bg-[#f6f8f6] dark:bg-white/5 border border-[#cfe7d7] dark:border-white/10 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="10" type="number"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#4c9a66]">Validity Period (Days)</label>
+<select class="w-full bg-[#f6f8f6] dark:bg-white/5 border border-[#cfe7d7] dark:border-white/10 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none">
+<option>30 Days</option>
+<option>90 Days</option>
+<option>180 Days</option>
+<option>365 Days</option>
+</select>
+</div>
+<div class="space-y-2">
+<label class="text-xs font-bold uppercase tracking-wider text-[#4c9a66]">Tier Description</label>
+<textarea class="w-full bg-[#f6f8f6] dark:bg-white/5 border border-[#cfe7d7] dark:border-white/10 rounded-lg px-4 py-2.5 focus:ring-2 focus:ring-primary focus:border-transparent outline-none" placeholder="Brief summary for members..." rows="3"></textarea>
+</div>
+<div class="p-4 bg-yellow-50 dark:bg-yellow-900/10 border border-yellow-100 dark:border-yellow-900/20 rounded-lg flex gap-3">
+<span class="material-symbols-outlined text-yellow-600 text-sm">warning</span>
+<p class="text-[10px] text-yellow-700 dark:text-yellow-400">Once created, the currency and billing cycle cannot be changed. Ensure corporate alignment before publishing.</p>
+</div>
+</div>
+<div class="p-6 border-t border-[#e7f3eb] dark:border-white/10 flex gap-3">
+<button class="flex-1 px-4 py-3 border border-[#cfe7d7] dark:border-white/10 rounded-lg font-bold hover:bg-[#f6f8f6] dark:hover:bg-white/5 transition-colors">Save as Draft</button>
+<button class="flex-1 px-4 py-3 bg-primary text-[#0d1b12] rounded-lg font-bold shadow-lg shadow-primary/20 hover:opacity-90 transition-opacity">Publish Global</button>
+</div>
+</div>
+</div>
+</div>
+<script>
+        // Simple UI Interaction logic for the drawer (simulated for visual demo)
+        function toggleDrawer() {
+            const backdrop = document.getElementById('drawer-backdrop');
+            const content = document.getElementById('drawer-content');
+            
+            if (backdrop.classList.contains('opacity-0')) {
+                backdrop.classList.remove('opacity-0', 'pointer-events-none');
+                content.classList.remove('translate-x-full');
+            } else {
+                backdrop.classList.add('opacity-0', 'pointer-events-none');
+                content.classList.add('translate-x-full');
+            }
+        }
+        
+        // Connect the "Create New Plan" buttons to the drawer
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.innerText.includes('Create New Plan')) {
+                btn.onclick = toggleDrawer;
+            }
+        });
+    </script>
+</body></html>

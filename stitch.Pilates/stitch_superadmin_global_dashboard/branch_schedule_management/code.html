@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Branch Schedule Management - ZenithFlow</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#13ec5b",
+                "background-light": "#f6f8f6",
+                "background-dark": "#102216",
+              },
+              fontFamily: {
+                "display": ["Manrope"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        body { font-family: 'Manrope', sans-serif; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#0d1b12] dark:text-white transition-colors duration-200">
+<div class="relative flex h-screen w-full flex-col overflow-hidden">
+<!-- Top Navigation Bar -->
+<header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-200 dark:border-gray-800 bg-white dark:bg-black/20 px-6 py-3 shrink-0">
+<div class="flex items-center gap-8">
+<div class="flex items-center gap-3 text-[#0d1b12] dark:text-white">
+<div class="size-8 bg-primary rounded-lg flex items-center justify-center text-black">
+<span class="material-symbols-outlined font-bold">energy_savings_leaf</span>
+</div>
+<h2 class="text-xl font-extrabold leading-tight tracking-tight">ZenithFlow</h2>
+</div>
+<label class="flex flex-col min-w-40 !h-10 max-w-64">
+<div class="flex w-full flex-1 items-stretch rounded-lg h-full">
+<div class="text-gray-400 flex border-none bg-gray-100 dark:bg-gray-800 items-center justify-center pl-4 rounded-l-lg border-r-0">
+<span class="material-symbols-outlined text-[20px]">search</span>
+</div>
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg text-sm focus:outline-0 focus:ring-0 border-none bg-gray-100 dark:bg-gray-800 focus:border-none h-full placeholder:text-gray-500 px-4 rounded-l-none border-l-0 pl-2 font-normal" placeholder="Search classes, members..." value=""/>
+</div>
+</label>
+</div>
+<div class="flex flex-1 justify-end gap-6 items-center">
+<nav class="hidden md:flex items-center gap-8">
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Dashboard</a>
+<a class="text-primary text-sm font-semibold" href="#">Schedules</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Members</a>
+<a class="text-sm font-semibold hover:text-primary transition-colors" href="#">Reports</a>
+</nav>
+<div class="h-6 w-px bg-gray-200 dark:bg-gray-800 mx-2"></div>
+<div class="flex gap-2">
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="flex items-center justify-center rounded-lg h-10 w-10 bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">settings</span>
+</button>
+</div>
+<div class="flex items-center gap-3 pl-2 border-l border-gray-200 dark:border-gray-800">
+<div class="text-right hidden sm:block">
+<p class="text-xs font-bold">Studio Central</p>
+<p class="text-[10px] text-gray-500">Branch Manager</p>
+</div>
+<div class="bg-center bg-no-repeat aspect-square bg-cover rounded-full size-10 border-2 border-primary" data-alt="User profile picture of a branch manager" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuDitW_MojnjPuW9FzaPPFu_Deijj54DFzCH_f9ZSd1E8_fYApDMLblK2ZhTQLyjdyWEFIrYSz_lLxjGk5cVT8yx2NAefsflqdH-98FH2A9x1tqqQjPNUIT9QytzPiFAgJgyR9vnY9EQJ-1Eq-Sy5RIO7g6-N8SSpHe-ULQl3CK38cG66IR9Fnf0Bg2mCH86hL69Go1K42NPEHAieUkOzl4wl8cWpdUFyv-imMdsvK7yNZakA88Eb5Az56rr4z5IsAu4xfJfssQiEpM");'></div>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar -->
+<aside class="w-64 flex flex-col justify-between border-r border-gray-200 dark:border-gray-800 bg-white dark:bg-black/10 p-4 shrink-0">
+<div class="flex flex-col gap-6">
+<div>
+<h1 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 px-3">Filters</h1>
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between px-3 py-2 rounded-lg bg-primary/10 text-primary group cursor-pointer">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-[20px]">location_on</span>
+<p class="text-sm font-bold">Downtown Studio</p>
+</div>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">groups</span>
+<p class="text-sm font-medium">Instructors (4)</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">fitness_center</span>
+<p class="text-sm font-medium">Class Types</p>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer">
+<span class="material-symbols-outlined text-[20px]">event_available</span>
+<p class="text-sm font-medium">Availability</p>
+</div>
+</div>
+</div>
+<div>
+<h1 class="text-xs font-bold uppercase tracking-wider text-gray-400 mb-4 px-3">Quick List</h1>
+<div class="space-y-3 px-3">
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm">Reformer Pilates</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input checked="" class="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm">Vinyasa Yoga</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="rounded border-gray-300 text-primary focus:ring-primary h-4 w-4" type="checkbox"/>
+<span class="text-sm">Barre Fitness</span>
+</label>
+</div>
+</div>
+</div>
+<div class="pt-4 border-t border-gray-100 dark:border-gray-800">
+<button class="flex w-full items-center justify-center rounded-lg h-10 px-4 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-sm font-bold hover:bg-gray-200 transition-colors">
+<span>Reset Filters</span>
+</button>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="flex flex-1 flex-col overflow-hidden">
+<!-- ToolBar & SectionHeader -->
+<div class="bg-white dark:bg-black/5 border-b border-gray-200 dark:border-gray-800 px-6 py-4 flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="text-2xl font-extrabold tracking-tight">Weekly Schedule</h2>
+<p class="text-sm text-gray-500">October 21 - October 27, 2024</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex bg-gray-100 dark:bg-gray-800 p-1 rounded-lg">
+<button class="px-3 py-1.5 text-xs font-bold rounded-md bg-white dark:bg-gray-700 shadow-sm">Week</button>
+<button class="px-3 py-1.5 text-xs font-bold text-gray-500">Day</button>
+<button class="px-3 py-1.5 text-xs font-bold text-gray-500">List</button>
+</div>
+<button class="flex items-center justify-center bg-primary text-black h-10 px-4 rounded-lg font-bold text-sm gap-2 hover:opacity-90 transition-opacity">
+<span class="material-symbols-outlined text-[20px] font-bold">add</span>
+<span>Quick Actions</span>
+</button>
+</div>
+</div>
+<div class="flex items-center justify-between gap-4">
+<div class="flex items-center gap-2">
+<button class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">chevron_left</span>
+</button>
+<button class="px-4 py-2 bg-gray-100 dark:bg-gray-800 rounded-lg text-sm font-bold">Today</button>
+<button class="p-2 bg-gray-100 dark:bg-gray-800 rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700">
+<span class="material-symbols-outlined">chevron_right</span>
+</button>
+</div>
+<div class="flex-1 max-w-sm">
+<div class="flex h-10 items-center justify-center rounded-lg bg-gray-100 dark:bg-gray-800 p-1">
+<label class="flex cursor-pointer h-full grow items-center justify-center rounded-md px-2 bg-white dark:bg-gray-700 shadow-sm text-black dark:text-white text-xs font-bold">
+<span>By Instructor</span>
+<input checked="" class="hidden" name="view-type" type="radio" value="instructor"/>
+</label>
+<label class="flex cursor-pointer h-full grow items-center justify-center rounded-md px-2 text-gray-500 text-xs font-bold">
+<span>By Room</span>
+<input class="hidden" name="view-type" type="radio" value="room"/>
+</label>
+</div>
+</div>
+</div>
+</div>
+<!-- Calendar Scheduler Grid -->
+<div class="flex-1 overflow-auto bg-gray-50 dark:bg-background-dark/50">
+<div class="min-w-[1000px] h-full flex flex-col">
+<!-- Header Sticky -->
+<div class="sticky top-0 z-20 flex bg-white dark:bg-gray-900 border-b border-gray-200 dark:border-gray-800 shadow-sm">
+<div class="w-20 shrink-0 border-r border-gray-100 dark:border-gray-800"></div>
+<div class="flex flex-1">
+<!-- Instructor Columns -->
+<div class="flex-1 py-3 px-4 text-center border-r border-gray-100 dark:border-gray-800">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-blue-100 mb-2 overflow-hidden border-2 border-white">
+<img class="object-cover w-full h-full" data-alt="Instructor Sarah Jones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDhRVuexaAm-jvPg5AJ8IB2TMBn2CraPESac4YhSNO5kmZHtpLfdr42w6o95mxbhHvRoAbmwJ-RCACSjvC1K7XeFrSjurzuwG9iYMGVrs2prv7W_FkZvpxCmuAkL3VgjXx75vtcmAszLDERRjC8ZO6cBLfpLtqjl15rD6tCNlbC3Ee-EvQJDqrp5QUq7C9F-pNEwvgf53RkVMPL4yDMa-u5qosrH_vCRBT_fXCuiwGXNXE8fFsfdNaa_m3GxPRdiOlRT7K8pdbv7lU"/>
+</div>
+<span class="text-xs font-extrabold">Sarah J.</span>
+</div>
+</div>
+<div class="flex-1 py-3 px-4 text-center border-r border-gray-100 dark:border-gray-800">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-green-100 mb-2 overflow-hidden border-2 border-white">
+<img class="object-cover w-full h-full" data-alt="Instructor Michael T." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvgS3dydJe7KocwGisKe8T9EYbWeKgh7WVHXijBpRyGx_mwjWP8-wiv-ilfxAhNwpDN2wQbl0Xs16_SnXZ-qn-X3se3zxPjaHP0fZ6bGARPtIz4D6FqJyibzFi4KXr11zGB-tCzqDsx6PyiOQjMYmMqSEsFB3HXaWEbGDhRxvvht4yGGfWeOuPQ6RDLgu1abxIluk9hh2XnxgX-_e9Gcg2iT3ZndK3zM6l5pMpBTBhGRvZWPXHRcsjru8hIdne7PgLYftlPDsMXCk"/>
+</div>
+<span class="text-xs font-extrabold">Michael T.</span>
+</div>
+</div>
+<div class="flex-1 py-3 px-4 text-center border-r border-gray-100 dark:border-gray-800">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-purple-100 mb-2 overflow-hidden border-2 border-white">
+<img class="object-cover w-full h-full" data-alt="Instructor Elena R." src="https://lh3.googleusercontent.com/aida-public/AB6AXuApxgj9OGJMUbP1Ivj9LSFeK6APEloxP7Rinz2S5ijK2bwjz9XLFBCtF10HfvNOmWyfDu1Vzwuys2os0wXmuQOvWsxMGgmST8Qc2Cm2-Wl9xmU-Tl0ANh7y7i7tfePhSgJX0Nnuyv-0r5CUcrywi4SQkkFDAOhDxW_py9aThKha7NG4jG9euCtHbspNp0QcwZJ8KYRFtl1mDEp924WOefB4FjkMF0TXfY1Q-TQ3QvX9Xr9KndPaojBr_xamTFgSYAlMknKtWBiD19M"/>
+</div>
+<span class="text-xs font-extrabold">Elena R.</span>
+</div>
+</div>
+<div class="flex-1 py-3 px-4 text-center border-r border-gray-100 dark:border-gray-800">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-yellow-100 mb-2 overflow-hidden border-2 border-white">
+<img class="object-cover w-full h-full" data-alt="Instructor David B." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3103OPIdfIN3iI8_5XKVclsqvHscRTU2m2HkPn5aZxm9KX3CVdz5zPZnU4noVYcjAvh-XuhSjtYmsrRLUtMn6YX_D5B2h6v_v8gHeYRuS0zg09j5Pt0MRbZdEhD1cbnwIOkrG5L4q2L468Z4yr80e2LQFj-Y-5IEBwYCDngJCJvFG2GBjGXAFBpxxQk1NBNYC_NAp2eLZ4fk-oETL9dUBd4iFzCzlxTzAfaycHoAD_vEwEbh8iKZm4ESuonacivqNA6IZNJ1e0_o"/>
+</div>
+<span class="text-xs font-extrabold">David B.</span>
+</div>
+</div>
+<div class="flex-1 py-3 px-4 text-center border-r border-gray-100 dark:border-gray-800">
+<div class="flex flex-col items-center">
+<div class="size-8 rounded-full bg-pink-100 mb-2 overflow-hidden border-2 border-white">
+<img class="object-cover w-full h-full" data-alt="Instructor Jessica K." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUVOPbSrRUZKBpZU2If2vz5cqegUobuxleYfXAGHYlQW4ZFGbQCunlyNvjVmcCDN8e1Pfv1JIRjrTSzB_1BMO3vQTDRRx2L9dQAd-gZXWjs3A-P17zVrJRY08ac8grAe01e3H2qClEsiBcPtGgf_sq_g9c_DxebGQrESPi9X0zJ3cUMWuHIwt2hH_YedXdtalcYALoKRkbxu-86VKUSJwuExMURULxF9eOkPTZXU-NLEVorLe0J28KTlaOqvUV5xGGAuasFHm7bKA"/>
+</div>
+<span class="text-xs font-extrabold">Jessica K.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Grid Body -->
+<div class="flex flex-1 relative">
+<!-- Time Axis -->
+<div class="w-20 shrink-0 bg-white dark:bg-gray-900 border-r border-gray-200 dark:border-gray-800">
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">07:00 AM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">08:00 AM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">09:00 AM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">10:00 AM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">11:00 AM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">12:00 PM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">01:00 PM</div>
+<div class="h-24 border-b border-gray-100 dark:border-gray-800 px-2 py-1 text-[10px] font-bold text-gray-400">02:00 PM</div>
+</div>
+<!-- Content Columns -->
+<div class="flex flex-1 relative">
+<!-- Background grid lines -->
+<div class="absolute inset-0 grid grid-cols-5 pointer-events-none">
+<div class="border-r border-gray-200/50 dark:border-gray-800/50"></div>
+<div class="border-r border-gray-200/50 dark:border-gray-800/50"></div>
+<div class="border-r border-gray-200/50 dark:border-gray-800/50"></div>
+<div class="border-r border-gray-200/50 dark:border-gray-800/50"></div>
+<div></div>
+</div>
+<!-- Sarah J Classes -->
+<div class="flex-1 relative p-2">
+<!-- Class Card 1 -->
+<div class="absolute left-2 right-2 top-[10px] h-20 bg-white dark:bg-gray-800 rounded-lg shadow-sm border-l-4 border-primary p-2 flex flex-col justify-between hover:ring-2 hover:ring-primary/50 cursor-pointer transition-all">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-[11px] font-bold truncate">Reformer Intro</h4>
+<span class="text-[9px] font-bold bg-gray-100 dark:bg-gray-700 px-1 rounded text-gray-500 uppercase">RM 1</span>
+</div>
+<p class="text-[10px] text-gray-500">07:15 - 08:00</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[80%]"></div>
+</div>
+<span class="text-[9px] font-bold whitespace-nowrap">8/10</span>
+</div>
+</div>
+<!-- Class Card 2 -->
+<div class="absolute left-2 right-2 top-[120px] h-32 bg-white dark:bg-gray-800 rounded-lg shadow-sm border-l-4 border-blue-500 p-2 flex flex-col justify-between hover:ring-2 hover:ring-blue-500/50 cursor-pointer transition-all">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-[11px] font-bold">Advanced Flow</h4>
+<span class="text-[9px] font-bold bg-gray-100 dark:bg-gray-700 px-1 rounded text-gray-500 uppercase">RM 2</span>
+</div>
+<p class="text-[10px] text-gray-500">08:15 - 09:30</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="bg-blue-500 h-full w-[100%]"></div>
+</div>
+<span class="text-[9px] font-bold text-red-500">Full</span>
+</div>
+</div>
+</div>
+<!-- Michael T Classes -->
+<div class="flex-1 relative p-2">
+<div class="absolute left-2 right-2 top-[96px] h-28 bg-white dark:bg-gray-800 rounded-lg shadow-sm border-l-4 border-yellow-500 p-2 flex flex-col justify-between hover:ring-2 hover:ring-yellow-500/50 cursor-pointer transition-all">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-[11px] font-bold">Zen Yoga</h4>
+<span class="text-[9px] font-bold bg-gray-100 dark:bg-gray-700 px-1 rounded text-gray-500 uppercase">Studio B</span>
+</div>
+<p class="text-[10px] text-gray-500">08:00 - 09:15</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="bg-yellow-500 h-full w-[40%]"></div>
+</div>
+<span class="text-[9px] font-bold">6/15</span>
+</div>
+</div>
+</div>
+<!-- Elena R Classes -->
+<div class="flex-1 relative p-2">
+<div class="absolute left-2 right-2 top-[10px] h-24 bg-white dark:bg-gray-800 rounded-lg shadow-sm border-l-4 border-primary p-2 flex flex-col justify-between hover:ring-2 hover:ring-primary/50 cursor-pointer transition-all">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-[11px] font-bold">Power Pilates</h4>
+<span class="text-[9px] font-bold bg-gray-100 dark:bg-gray-700 px-1 rounded text-gray-500 uppercase">RM 3</span>
+</div>
+<p class="text-[10px] text-gray-500">07:00 - 08:00</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[90%]"></div>
+</div>
+<span class="text-[9px] font-bold">9/10</span>
+</div>
+</div>
+<div class="absolute left-2 right-2 top-[300px] h-24 bg-white dark:bg-gray-800 rounded-lg shadow-sm border-l-4 border-pink-500 p-2 flex flex-col justify-between hover:ring-2 hover:ring-pink-500/50 cursor-pointer transition-all">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-[11px] font-bold">Barre Express</h4>
+<span class="text-[9px] font-bold bg-gray-100 dark:bg-gray-700 px-1 rounded text-gray-500 uppercase">Studio A</span>
+</div>
+<p class="text-[10px] text-gray-500">10:00 - 11:00</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="bg-pink-500 h-full w-[25%]"></div>
+</div>
+<span class="text-[9px] font-bold">5/20</span>
+</div>
+</div>
+</div>
+<!-- David B Classes -->
+<div class="flex-1 relative p-2">
+<!-- Empty space simulation -->
+</div>
+<!-- Jessica K Classes -->
+<div class="flex-1 relative p-2">
+<div class="absolute left-2 right-2 top-[450px] h-20 bg-white dark:bg-gray-800 rounded-lg shadow-sm border-l-4 border-primary p-2 flex flex-col justify-between hover:ring-2 hover:ring-primary/50 cursor-pointer transition-all">
+<div>
+<div class="flex justify-between items-start">
+<h4 class="text-[11px] font-bold">Core Burn</h4>
+<span class="text-[9px] font-bold bg-gray-100 dark:bg-gray-700 px-1 rounded text-gray-500 uppercase">RM 1</span>
+</div>
+<p class="text-[10px] text-gray-500">11:45 - 12:30</p>
+</div>
+<div class="flex items-center gap-2">
+<div class="flex-1 h-1 bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[60%]"></div>
+</div>
+<span class="text-[9px] font-bold">6/10</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Summary Bar -->
+<footer class="h-10 bg-white dark:bg-gray-900 border-t border-gray-200 dark:border-gray-800 px-6 flex items-center justify-between shrink-0">
+<div class="flex gap-4 text-[10px] font-bold text-gray-500 uppercase">
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> Reformer</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-yellow-500"></span> Yoga</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-pink-500"></span> Barre</span>
+<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Advanced</span>
+</div>
+<div class="text-[10px] font-bold text-gray-400">
+                        Total Capacity: 74% • Classes: 18 This Week
+                    </div>
+</footer>
+</main>
+</div>
+</div>
+</body></html>
