@@ -91,7 +91,7 @@ export const AuthProvider = ({ children }) => {
                 <div style={{ marginTop: '2rem', padding: '1rem', background: '#f3f4f6', borderRadius: '8px', textAlign: 'left', display: 'inline-block' }}>
                     <strong>Instrucciones:</strong>
                     <ol>
-                        <li>Ve a tu proyecto en Vercel -> Settings -> Environment Variables</li>
+                        <li>Ve a tu proyecto en Vercel - Settings - Environment Variables</li>
                         <li>Añade <code>VITE_SUPABASE_URL</code></li>
                         <li>Añade <code>VITE_SUPABASE_ANON_KEY</code></li>
                         <li>Redespliega el proyecto.</li>
