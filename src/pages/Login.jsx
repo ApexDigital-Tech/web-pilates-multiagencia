@@ -14,13 +14,25 @@ export default function Login() {
         setLoading(true)
         setError(null)
 
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
+        try {
+            // Comprobación rápida para evitar que se quede colgado si no hay config
+            const url = import.meta.env.VITE_SUPABASE_URL;
+            if (!url || url.includes('UPDATE_THIS') || url.includes('placeholder')) {
+                throw new Error('Configuración de Supabase no detectada. Por favor, añade VITE_SUPABASE_URL en Vercel.');
+            }
 
-        if (error) {
-            setError(error.message)
+            const { data, error: signInError } = await supabase.auth.signInWithPassword({ email, password })
+
+            if (signInError) {
+                setError(signInError.message)
+            } else if (data) {
+                navigate('/')
+            }
+        } catch (err) {
+            console.error('Login error:', err)
+            setError(err.message || 'Error al intentar iniciar sesión. Revisa tu conexión.')
+        } finally {
             setLoading(false)
-        } else {
-            navigate('/')
         }
     }
 

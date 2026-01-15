@@ -16,27 +16,35 @@ export default function Register() {
         setLoading(true)
         setError(null)
 
-        const { data, error } = await supabase.auth.signUp({
-            email,
-            password,
-            options: {
-                data: {
-                    full_name: fullName,
+        try {
+            const url = import.meta.env.VITE_SUPABASE_URL;
+            if (!url || url.includes('UPDATE_THIS') || url.includes('placeholder')) {
+                throw new Error('Configuración de Supabase no detectada.');
+            }
+
+            const { data, error: signUpError } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: {
+                        full_name: fullName,
+                    }
+                }
+            })
+
+            if (signUpError) {
+                setError(signUpError.message)
+            } else {
+                setSuccess(true)
+                if (data?.session) {
+                    navigate('/')
                 }
             }
-        })
-
-        if (error) {
-            setError(error.message)
+        } catch (err) {
+            console.error('Registration error:', err)
+            setError(err.message || 'Error al intentar registrarse.')
+        } finally {
             setLoading(false)
-        } else {
-            setSuccess(true)
-            setLoading(false)
-            // Note: If email confirmation is enabled, they need to check email
-            // If disabled, they might be logged in immediately.
-            if (data?.session) {
-                navigate('/')
-            }
         }
     }
 
