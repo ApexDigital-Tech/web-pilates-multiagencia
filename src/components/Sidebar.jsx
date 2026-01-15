@@ -9,20 +9,25 @@ import {
     ChevronRight,
     UserCircle
 } from 'lucide-react';
-import { NavLink, Link, useNavigate } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 
 export default function Sidebar() {
     const { profile, user } = useAuth();
-    const navigate = useNavigate();
 
     const handleLogout = async () => {
         try {
+            // Clear all local storage just in case
+            localStorage.clear();
+            sessionStorage.clear();
             await supabase.auth.signOut();
-            navigate('/login');
+            // Force a hard redirect to the login page to clear all React states
+            window.location.href = '/login';
         } catch (error) {
             console.error('Error logging out:', error);
+            // Fallback redirect
+            window.location.href = '/login';
         }
     };
 
@@ -35,7 +40,7 @@ export default function Sidebar() {
         { name: 'Ajustes', icon: Settings, path: '/settings', roles: ['superadmin', 'branch_manager', 'instructor', 'client'] },
     ];
 
-    // Fallback to 'client' role if profile is not loaded yet or role is missing
+    // Get current role safely, default to 'client' for UX
     const currentRole = profile?.role || 'client';
     const filteredMenu = menuItems.filter(item => item.roles.includes(currentRole));
 
@@ -70,7 +75,7 @@ export default function Sidebar() {
                         )}
                     </div>
                     <div className="user-info">
-                        <p className="user-name">{profile?.full_name || user?.email?.split('@')[0] || 'Usuario'}</p>
+                        <p className="user-name">{profile?.full_name || 'Usuario'}</p>
                         <p className="user-role">
                             {currentRole === 'superadmin' ? 'Super Administrador' :
                                 currentRole === 'branch_manager' ? 'Gerente de Sede' :
@@ -79,7 +84,12 @@ export default function Sidebar() {
                     </div>
                 </div>
 
-                <button onClick={handleLogout} className="logout-btn" type="button">
+                <button
+                    onClick={handleLogout}
+                    className="logout-btn"
+                    type="button"
+                    style={{ cursor: 'pointer', zIndex: 100 }}
+                >
                     <LogOut size={18} />
                     <span>Cerrar Sesión</span>
                 </button>

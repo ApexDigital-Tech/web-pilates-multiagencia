@@ -22,6 +22,8 @@ import {
 } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { useZenithFlow } from '../hooks/useZenithFlow';
+import { Link } from 'react-router-dom';
+
 
 export default function Calendar() {
     const { profile, user } = useAuth();
@@ -59,11 +61,16 @@ export default function Calendar() {
     const renderHeader = () => {
         return (
             <div className="flex justify-between items-center mb-8">
-                <div>
-                    <h1 className="text-2xl" style={{ textTransform: 'capitalize' }}>
-                        {format(currentMonth, 'MMMM yyyy', { locale: es })}
-                    </h1>
-                    <p style={{ color: 'var(--text-muted)' }}>Gestiona las clases y reservas en {profile?.organizations?.name}</p>
+                <div style={{ display: 'flex', gap: '2rem', alignItems: 'center' }}>
+                    <div>
+                        <h1 className="text-2xl" style={{ textTransform: 'capitalize' }}>
+                            {format(currentMonth, 'MMMM yyyy', { locale: es })}
+                        </h1>
+                        <p style={{ color: 'var(--text-muted)' }}>Gestiona las clases y reservas en {profile?.organizations?.name}</p>
+                    </div>
+                    <Link to="/" style={{ padding: '0.5rem 1rem', borderRadius: '8px', background: '#fff', border: '1px solid #e2e8f0', color: '#1e293b', textDecoration: 'none', fontSize: '0.875rem', fontWeight: '500', boxShadow: '0 1px 2px rgba(0,0,0,0.05)' }}>
+                        Ir al Panel
+                    </Link>
                 </div>
 
                 {message.text && (
