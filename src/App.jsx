@@ -2,8 +2,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { AuthProvider } from './contexts/AuthContext'
 import { ProtectedRoute } from './components/ProtectedRoute'
 import Login from './pages/Login'
+import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import DashboardLayout from './layouts/DashboardLayout'
+import Calendar from './pages/Calendar'
 import './index.css'
 
 function App() {
@@ -13,6 +15,7 @@ function App() {
                 <Routes>
                     {/* Rutas Públicas */}
                     <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
 
                     {/* Rutas Protegidas bajo Layout */}
                     <Route
@@ -23,6 +26,7 @@ function App() {
                         }
                     >
                         <Route path="/" element={<Dashboard />} />
+                        <Route path="/calendar" element={<Calendar />} />
                         {/* Otras rutas internas se añadirían aquí */}
                     </Route>
 

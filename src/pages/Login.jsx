@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { supabase } from '../supabaseClient'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 
 export default function Login() {
     const [email, setEmail] = useState('')
@@ -59,10 +59,14 @@ export default function Login() {
                 <button
                     disabled={loading}
                     type="submit"
-                    style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', background: '#000', color: 'white', fontWeight: '600', border: 'none', cursor: 'pointer', transition: 'opacity 0.2s' }}
+                    style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', background: '#000', color: 'white', fontWeight: '600', border: 'none', cursor: 'pointer', transition: 'opacity 0.2s', marginBottom: '1.5rem' }}
                 >
                     {loading ? 'Cargando...' : 'Iniciar Sesión'}
                 </button>
+
+                <p style={{ textAlign: 'center', fontSize: '0.875rem', color: '#666' }}>
+                    ¿No tienes cuenta? <Link to="/register" style={{ color: 'var(--primary)', fontWeight: '600', textDecoration: 'none' }}>Regístrate aquí</Link>
+                </p>
             </form>
         </div>
     )
