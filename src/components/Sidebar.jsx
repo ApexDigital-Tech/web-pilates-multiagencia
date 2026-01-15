@@ -9,14 +9,22 @@ import {
     ChevronRight,
     UserCircle
 } from 'lucide-react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 
 export default function Sidebar() {
     const { profile, user } = useAuth();
+    const navigate = useNavigate();
 
-    const handleLogout = () => supabase.auth.signOut();
+    const handleLogout = async () => {
+        try {
+            await supabase.auth.signOut();
+            navigate('/login');
+        } catch (error) {
+            console.error('Error logging out:', error);
+        }
+    };
 
     const menuItems = [
         { name: 'Dashboard', icon: LayoutDashboard, path: '/', roles: ['superadmin', 'branch_manager', 'instructor', 'client'] },
@@ -27,14 +35,16 @@ export default function Sidebar() {
         { name: 'Ajustes', icon: Settings, path: '/settings', roles: ['superadmin', 'branch_manager', 'instructor', 'client'] },
     ];
 
-    const filteredMenu = menuItems.filter(item => item.roles.includes(profile?.role));
+    // Fallback to 'client' role if profile is not loaded yet or role is missing
+    const currentRole = profile?.role || 'client';
+    const filteredMenu = menuItems.filter(item => item.roles.includes(currentRole));
 
     return (
         <aside className="sidebar">
-            <div className="sidebar-logo">
+            <Link to="/" className="sidebar-logo" style={{ textDecoration: 'none', color: 'inherit' }}>
                 <div className="logo-icon">ZF</div>
                 <span className="logo-text">ZenithFlow</span>
-            </div>
+            </Link>
 
             <nav className="sidebar-nav">
                 {filteredMenu.map((item) => (
@@ -60,12 +70,16 @@ export default function Sidebar() {
                         )}
                     </div>
                     <div className="user-info">
-                        <p className="user-name">{profile?.full_name || user?.email?.split('@')[0]}</p>
-                        <p className="user-role">{profile?.role}</p>
+                        <p className="user-name">{profile?.full_name || user?.email?.split('@')[0] || 'Usuario'}</p>
+                        <p className="user-role">
+                            {currentRole === 'superadmin' ? 'Super Administrador' :
+                                currentRole === 'branch_manager' ? 'Gerente de Sede' :
+                                    currentRole === 'instructor' ? 'Instructor' : 'Cliente'}
+                        </p>
                     </div>
                 </div>
 
-                <button onClick={handleLogout} className="logout-btn">
+                <button onClick={handleLogout} className="logout-btn" type="button">
                     <LogOut size={18} />
                     <span>Cerrar Sesión</span>
                 </button>
