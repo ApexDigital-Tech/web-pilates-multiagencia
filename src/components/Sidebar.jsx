@@ -14,24 +14,18 @@ import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../supabaseClient';
 
 export default function Sidebar() {
-    const { profile, user } = useAuth();
+    const { profile, user, loading } = useAuth();
 
     const handleLogout = async () => {
-        console.log('Logging out...');
+        console.log('[Sidebar] Initiating logout...');
         try {
-            // 1. Sign out from Supabase
-            const { error } = await supabase.auth.signOut();
-            if (error) throw error;
-
-            // 2. Clear all local session data
+            await supabase.auth.signOut();
             localStorage.clear();
             sessionStorage.clear();
-
-            // 3. Force hard reload to login page
+            // Force a hard jump to login to kill any local state
             window.location.href = '/login';
         } catch (error) {
-            console.error('Error during logout:', error);
-            // Fallback for emergency
+            console.error('[Sidebar] Logout error:', error);
             window.location.href = '/login';
         }
     };
@@ -45,12 +39,12 @@ export default function Sidebar() {
         { name: 'Ajustes', icon: Settings, path: '/settings', roles: ['superadmin', 'branch_manager', 'instructor', 'client'] },
     ];
 
-    // Safely get current role from profile
-    const currentRole = profile?.role || 'client';
+    // DETERMINAR ROL REAL
+    // Importante: Si 'loading' es true o no hay profile, no podemos confiar en el rol aun.
+    const currentRole = profile?.role;
 
-    // Sort and filter menu based on role permissions
     const filteredMenu = menuItems.filter(item => {
-        if (!item.roles) return true;
+        if (!currentRole) return item.roles.includes('client'); // Default safe view
         return item.roles.includes(currentRole);
     });
 
@@ -86,10 +80,11 @@ export default function Sidebar() {
                     </div>
                     <div className="user-info">
                         <p className="user-name">{profile?.full_name || user?.email?.split('@')[0] || 'Cargando...'}</p>
-                        <p className="user-role">
-                            {currentRole === 'superadmin' ? 'Super Administrador' :
-                                currentRole === 'branch_manager' ? 'Gerente de Sede' :
-                                    currentRole === 'instructor' ? 'Instructor' : 'Cliente'}
+                        <p className="user-role" style={{ color: currentRole === 'superadmin' ? '#6366f1' : 'inherit', fontWeight: currentRole === 'superadmin' ? 'bold' : 'normal' }}>
+                            {!currentRole ? 'Identificando...' :
+                                currentRole === 'superadmin' ? 'Super Administrador' :
+                                    currentRole === 'branch_manager' ? 'Gerente de Sede' :
+                                        currentRole === 'instructor' ? 'Instructor' : 'Cliente'}
                         </p>
                     </div>
                 </div>
@@ -101,20 +96,20 @@ export default function Sidebar() {
                     style={{
                         cursor: 'pointer',
                         width: '100%',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '12px',
-                        padding: '12px',
-                        borderRadius: '10px',
                         background: '#fff1f2',
                         color: '#e11d48',
                         border: '1px solid #fda4af',
-                        transition: 'all 0.2s ease',
-                        marginTop: '10px'
+                        padding: '12px',
+                        borderRadius: '10px',
+                        marginTop: '10px',
+                        fontWeight: '600',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '12px'
                     }}
                 >
                     <LogOut size={18} />
-                    <span style={{ fontWeight: '600' }}>Cerrar Sesión</span>
+                    <span>Cerrar Sesión</span>
                 </button>
             </div>
         </aside>

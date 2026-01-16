@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     const [configError, setConfigError] = useState(null)
 
     const fetchProfile = async (userId) => {
-        console.log('Fetching profile for:', userId);
+        console.log('[Auth] Fetching profile for ID:', userId);
         try {
             const { data, error } = await supabase
                 .from('profiles')
@@ -22,18 +22,14 @@ export const AuthProvider = ({ children }) => {
                 .single()
 
             if (error) {
-                console.error('Profile fetch error:', error);
-                // Si el error es que no existe el perfil, podemos crear uno básico o dejarlo como null
-                if (error.code === 'PGRST116') {
-                    console.warn('No hay perfil en DB para este usuario.');
-                }
+                console.error('[Auth] Profile fetch error:', error.message, error.code);
                 return null;
             }
 
-            console.log('Profile loaded successfully:', data);
+            console.log('[Auth] Profile fetched successfully. Role:', data?.role);
             return data;
         } catch (error) {
-            console.error('Profile fetch exception:', error);
+            console.error('[Auth] Profile exception:', error);
             return null;
         }
     }
@@ -42,39 +38,41 @@ export const AuthProvider = ({ children }) => {
         let isMounted = true;
 
         if (!isSupabaseConfigured) {
-            setConfigError('Configuración de Supabase incompleta en Vercel.')
+            setConfigError('Credenciales de Supabase no validas en este entorno.')
             setLoading(false)
             return;
         }
 
-        const initialize = async () => {
+        const initializeAuth = async () => {
+            console.log('[Auth] Initializing session...');
             try {
-                // 1. Get initial session
-                const { data: { session: initialSession }, error } = await supabase.auth.getSession()
+                const { data: { session: currentSession }, error } = await supabase.auth.getSession()
                 if (error) throw error;
 
                 if (isMounted) {
-                    setSession(initialSession)
-                    setUser(initialSession?.user ?? null)
+                    setSession(currentSession)
+                    setUser(currentSession?.user ?? null)
 
-                    if (initialSession?.user) {
-                        const profileData = await fetchProfile(initialSession.user.id)
+                    if (currentSession?.user) {
+                        const profileData = await fetchProfile(currentSession.user.id)
                         setProfile(profileData)
                     }
                 }
             } catch (err) {
-                console.error('Auth initialization error:', err)
+                console.error('[Auth] Init error:', err)
             } finally {
-                if (isMounted) setLoading(false);
+                if (isMounted) {
+                    console.log('[Auth] Init finished. Loading -> false');
+                    setLoading(false);
+                }
             }
         }
 
-        initialize()
+        initializeAuth()
 
-        // 2. Listen for auth changes
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, currentSession) => {
-                console.log('Auth event:', event);
+                console.log('[Auth] State change event:', event);
 
                 if (isMounted) {
                     setSession(currentSession)
@@ -86,8 +84,6 @@ export const AuthProvider = ({ children }) => {
                     } else {
                         setProfile(null)
                     }
-
-                    // Aseguramos que el estado de carga termine en cualquier cambio de auth
                     setLoading(false)
                 }
             }
@@ -108,11 +104,13 @@ export const AuthProvider = ({ children }) => {
         isBranchManager: profile?.role === 'branch_manager'
     }
 
+    // Pantalla de error de configuración (solo si las llaves de Vercel estan mal)
     if (configError) {
         return (
-            <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'sans-serif' }}>
-                <h1>⚠️ Error de Configuración</h1>
+            <div style={{ padding: '2rem', textAlign: 'center', background: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <h1 style={{ color: '#ef4444' }}>⚠️ Error Crítico</h1>
                 <p>{configError}</p>
+                <p style={{ marginTop: '1rem', color: '#666' }}>Revisa las variables de entorno en Vercel.</p>
             </div>
         )
     }
@@ -123,7 +121,7 @@ export const AuthProvider = ({ children }) => {
                 <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
                     <div style={{ textAlign: 'center' }}>
                         <div style={{ width: '40px', height: '40px', border: '3px solid #e2e8f0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
-                        <p style={{ fontSize: '1.1rem', color: '#64748b' }}>Cargando ZenithFlow...</p>
+                        <p style={{ fontSize: '1.1rem', color: '#64748b' }}>Cargando datos de sesión...</p>
                     </div>
                 </div>
             )}
