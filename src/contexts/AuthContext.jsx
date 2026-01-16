@@ -22,11 +22,9 @@ export const AuthProvider = ({ children }) => {
                 .single()
 
             if (error) {
-                console.error('[Auth] Profile fetch error:', error.message, error.code);
+                console.error('[Auth] Profile fetch error:', error.message);
                 return null;
             }
-
-            console.log('[Auth] Profile fetched successfully. Role:', data?.role);
             return data;
         } catch (error) {
             console.error('[Auth] Profile exception:', error);
@@ -38,16 +36,22 @@ export const AuthProvider = ({ children }) => {
         let isMounted = true;
 
         if (!isSupabaseConfigured) {
-            setConfigError('Credenciales de Supabase no validas en este entorno.')
+            setConfigError('Configuración de Supabase no detectada.')
             setLoading(false)
             return;
         }
 
+        // EMERGENCIA: Timeout de seguridad. Si en 10 segundos no ha cargado, forzamos el fin del loading.
+        const emergencyTimeout = setTimeout(() => {
+            if (isMounted && loading) {
+                console.warn('[Auth] Emergency timeout reached. Forcing loading to false.');
+                setLoading(false);
+            }
+        }, 10000);
+
         const initializeAuth = async () => {
-            console.log('[Auth] Initializing session...');
             try {
                 const { data: { session: currentSession }, error } = await supabase.auth.getSession()
-                if (error) throw error;
 
                 if (isMounted) {
                     setSession(currentSession)
@@ -62,8 +66,8 @@ export const AuthProvider = ({ children }) => {
                 console.error('[Auth] Init error:', err)
             } finally {
                 if (isMounted) {
-                    console.log('[Auth] Init finished. Loading -> false');
                     setLoading(false);
+                    clearTimeout(emergencyTimeout);
                 }
             }
         }
@@ -72,26 +76,25 @@ export const AuthProvider = ({ children }) => {
 
         const { data: { subscription } } = supabase.auth.onAuthStateChange(
             async (event, currentSession) => {
-                console.log('[Auth] State change event:', event);
+                if (!isMounted) return;
 
-                if (isMounted) {
-                    setSession(currentSession)
-                    setUser(currentSession?.user ?? null)
+                setSession(currentSession)
+                setUser(currentSession?.user ?? null)
 
-                    if (currentSession?.user) {
-                        const profileData = await fetchProfile(currentSession.user.id)
-                        setProfile(profileData)
-                    } else {
-                        setProfile(null)
-                    }
-                    setLoading(false)
+                if (currentSession?.user) {
+                    const profileData = await fetchProfile(currentSession.user.id)
+                    setProfile(profileData)
+                } else {
+                    setProfile(null)
                 }
+                setLoading(false)
             }
         )
 
         return () => {
             isMounted = false;
             subscription.unsubscribe();
+            clearTimeout(emergencyTimeout);
         }
     }, [])
 
@@ -104,28 +107,28 @@ export const AuthProvider = ({ children }) => {
         isBranchManager: profile?.role === 'branch_manager'
     }
 
-    // Pantalla de error de configuración (solo si las llaves de Vercel estan mal)
     if (configError) {
-        return (
-            <div style={{ padding: '2rem', textAlign: 'center', background: '#fff', height: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h1 style={{ color: '#ef4444' }}>⚠️ Error Crítico</h1>
-                <p>{configError}</p>
-                <p style={{ marginTop: '1rem', color: '#666' }}>Revisa las variables de entorno en Vercel.</p>
-            </div>
-        )
+        return <div style={{ padding: '2rem', textAlign: 'center' }}><h1>Error de Configuración</h1></div>
     }
 
+    // Usamos un render condicional simple
     return (
         <AuthContext.Provider value={value}>
-            {!loading ? children : (
-                <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc' }}>
+            {loading ? (
+                <div style={{ height: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#f8fafc', fontFamily: 'sans-serif' }}>
                     <div style={{ textAlign: 'center' }}>
-                        <div style={{ width: '40px', height: '40px', border: '3px solid #e2e8f0', borderTopColor: '#000', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
-                        <p style={{ fontSize: '1.1rem', color: '#64748b' }}>Cargando datos de sesión...</p>
+                        <div style={{ width: '40px', height: '40px', border: '3px solid #e2e8f0', borderTopColor: '#6366f1', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto 1rem' }}></div>
+                        <p style={{ color: '#64748b', fontWeight: '500' }}>Cargando ZenithFlow...</p>
+                        <button
+                            onClick={() => setLoading(false)}
+                            style={{ marginTop: '1rem', background: 'none', border: 'none', color: '#6366f1', cursor: 'pointer', fontSize: '0.8rem', textDecoration: 'underline' }}
+                        >
+                            ¿Tardando mucho? Haz clic aquí para forzar entrada
+                        </button>
                     </div>
+                    <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
                 </div>
-            )}
-            <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+            ) : children}
         </AuthContext.Provider>
     )
 }
